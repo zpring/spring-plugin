@@ -5,7 +5,7 @@
 	<artifactId>spring-plugin</artifactId>
 	<packaging>pom</packaging>
 	<name>Spring Plugin</name>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.1</version>
 	<description>Simple plugin infrastructure</description>
 
 	<organization>
@@ -47,10 +47,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<assertj.version>3.20.2</assertj.version>
-		<junit.version>5.8.0</junit.version>
+		<junit.version>5.12.2</junit.version>
 		<logback.version>1.2.6</logback.version>
 		<mockito.version>3.12.4</mockito.version>
-		<spring.version>6.0.0-M2</spring.version>
+		<spring.version>6.2.19</spring.version>
 		<slf4j.version>1.7.32</slf4j.version>
 
 		<java-module-name>spring.plugin</java-module-name>
