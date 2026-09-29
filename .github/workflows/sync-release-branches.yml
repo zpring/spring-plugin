@@ -42,7 +42,9 @@ jobs:
     - name: Handle Release Branches Synchronization
       run: |
         echo "handle ${{ inputs.repository }} ${{ inputs.branch }}"
-        git remote add upstream https://github.com/${{ inputs.repository }}
-        git fetch upstream ${{ inputs.branch }}
         git config user.name "Spring Builds"
         git config user.email "spring-builds@users.noreply.github.com"
+        git remote add upstream https://github.com/${{ inputs.repository }}
+        git fetch upstream ${{ inputs.branch }}
+        releasebranches=`git show upstream/${{ inputs.branch }}:.github/release-branches`
+        echo "$releasebranches"
