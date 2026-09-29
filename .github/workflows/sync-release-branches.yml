@@ -21,8 +21,9 @@ jobs:
     # FIXME if
     steps:
       - name: Sync Release Branches
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ secrets.SYNC_RELEASE_BRANCHES_TOKEN }}
         run: |
-            echo "hello ${{ format('{0}-commercial', github.repository) }} ${{ github.ref }}"
+            echo "hello ${{ format('{0}-commercial', github.repository) }} ${{ github.ref_name }}"
 #          gh workflow run --repo ${{ format('{0}-commercial', github.repository) }} sync-release-branches.yml
