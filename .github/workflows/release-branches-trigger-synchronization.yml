@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Trigger Release Branches Synchronization
       env:
-        GH_TOKEN: ${{ secrets.SYNC_RELEASE_BRANCHES_TOKEN }}
+        GH_TOKEN: ${{ secrets.RELEASE_BRANCHES_SYNCHRONIZATION_TOKEN }}
       if: ${{ env.GH_TOKEN != null }}
       run: |
           echo "Triggering Release Branches Synchronization (${{ format('{0}-commercial', github.repository) }} ${{ github.ref_name }})"

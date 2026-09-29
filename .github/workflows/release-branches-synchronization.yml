@@ -1,3 +1,11 @@
+# Synchronization for release branches.
+#
+# Requires a 'RELEASE_BRANCHES_SYNCHRONIZATION_TOKEN' secret containing a fine-grained token 
+# with Contents: read-only, Workflows: read-and-write
+#
+# Looks for `.github/release-branches` in the OSS repo to sync with the commercial repo
+# the file must contain a list of versions on each line.
+
 name: "Release Branches - Synchronization"
 "on":
   workflow_dispatch:
@@ -23,6 +31,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        token: ${{ secrets.RELEASE_BRANCHES_SYNCHRONIZATION_TOKEN }}
     - name: Handle Release Branches Synchronization
       run: |
         echo "Handling Release Branches Synchronization (${{ inputs.repository }} ${{ inputs.branch }})"
