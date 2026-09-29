@@ -47,4 +47,7 @@ jobs:
         git remote add upstream https://github.com/${{ inputs.repository }}
         git fetch upstream ${{ inputs.branch }}
         releasebranches=`git show upstream/${{ inputs.branch }}:.github/release-branches`
-        echo "$releasebranches"
+        while IFS= read -r releasebranch; do
+            echo "Processing: $releasebranch"
+            git show-ref --verify --quiet refs/heads/release/$releasebranch || git branch release/$releasebranch
+        done <<< "$releasebranches"
