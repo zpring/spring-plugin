@@ -53,7 +53,7 @@ jobs:
         releasebranches=`git show upstream/${{ inputs.branch }}:.github/release-branches`
         while IFS= read -r releasebranch; do
             echo "Rebasing release branch $releasebranch"
-            git show-ref --verify --quiet refs/heads/release/$releasebranch || git branch release/$releasebranch
+            git show-ref --verify --quiet refs/heads/release/$releasebranch || git branch release/$releasebranch upstream/${{ inputs.branch }}
             git rebase upstream/${{ inputs.branch }} release/$releasebranch
             git push --force-with-lease --force-if-includes origin release/$releasebranch
         done <<< "$releasebranches"
