@@ -1,3 +1,4 @@
+# GH_TOKEN needs actions: read-write and contents: read
 name: "Sync Release Branches"
 "on":
   push:
@@ -27,7 +28,10 @@ jobs:
       if: ${{ env.GH_TOKEN != null }}
       run: |
           echo "Triggering Release Branches Synchronization (${{ format('{0}-commercial', github.repository) }} ${{ github.ref_name }})"
-          gh workflow run --repo ${{ format('{0}-commercial', github.repository) }} sync-release-branches.yml
+          gh workflow run sync-release-branches.yml \
+          --repo ${{ format('{0}-commercial', github.repository) }}  \
+          --field repository=${{ github.repository }} \
+          --field branch=${{ github.ref_name }} \
   handle:
     name: Handle Release Branches Synchronization
     runs-on: ubuntu-latest
