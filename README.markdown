@@ -4,18 +4,18 @@
 
 ### Introduction
 
-Building extensible architectures nowadays is a core principle to create maintainable applications. This is why fully fledged plugin environments like *OSGi* are so popular these days. Unfortunately the introduction of *OSGi* introduces a lot of complexity to projects.
+Building extensible architectures nowadays is a core principle to create maintainable applications. This is why fully fledged plugin environments like _OSGi_ are so popular these days. Unfortunately the introduction of _OSGi_ introduces a lot of complexity to projects.
 
 Spring Plugin provides a more pragmatic approach to plugin development by providing the core flexibility of having plugin implementations extending a core system's functionality but of course not delivering core OSGi features like dynamic class loading or runtime installation and deployment of plugins. Although Spring Plugin thus is not nearly as powerful as OSGi, it serves a poor man's requirements to build a modular
 extensible application.
 
 ### Context
 
--   You want to build an extensible architecture minimizing overhead as much as possible
--   You cannot use OSGi as fully fledged plugin architecture for whatever reasons
--   You want to express extensibility by providing dedicated plugin interfaces
--   You want to extend the core system by simply providing an implementation of the plugin interface bundled in a JAR file and available in the classpath
--   (You use Spring in your application)
+- You want to build an extensible architecture minimizing overhead as much as possible
+- You cannot use OSGi as fully fledged plugin architecture for whatever reasons
+- You want to express extensibility by providing dedicated plugin interfaces
+- You want to extend the core system by simply providing an implementation of the plugin interface bundled in a JAR file and available in the classpath
+- (You use Spring in your application)
 
 The last point actually is not essential although Spring Plugin gains a
 lot of momentum in collaborative use with Spring.
@@ -271,19 +271,18 @@ The `MetadataProvider` interface is to be used in application plugin interfaces 
 
 ## Glossary
 
-
 ### O
 
 OSGi
 
-  * Open Services Gateway Initiative - a fully fledged plugin runtime environment on top of the Java VM - [https://en.wikipedia.org/wiki/OSGi](https://en.wikipedia.org/wiki/OSGi).
+- Open Services Gateway Initiative - a fully fledged plugin runtime environment on top of the Java VM - [https://en.wikipedia.org/wiki/OSGi](https://en.wikipedia.org/wiki/OSGi).
 
 ### X
 
 XML
 
-  * eXtensible Markup Language
+- eXtensible Markup Language
 
 XSD
 
-  * Xml Schema Definition
+- Xml Schema Definition
