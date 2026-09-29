@@ -1,5 +1,5 @@
-name: Sync Release Branches
-on:
+name: "Sync Release Branches"
+"on":
   push:
     branches:
     - "main"
