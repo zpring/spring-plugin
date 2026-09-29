@@ -1,0 +1,23 @@
+name: "Release Branches - Trigger Synchronization"
+"on":
+  push:
+    branches:
+    - "main"
+    - "[0-9].[0-9].x"
+    - "[0-9].[0-9].[0-9].x"
+jobs:
+  trigger:
+    name: Trigger Release Branches Synchronization
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+    - name: Trigger Release Branches Synchronization
+      env:
+        GH_TOKEN: ${{ secrets.SYNC_RELEASE_BRANCHES_TOKEN }}
+      if: ${{ env.GH_TOKEN != null }}
+      run: |
+          echo "Triggering Release Branches Synchronization (${{ format('{0}-commercial', github.repository) }} ${{ github.ref_name }})"
+          gh workflow run release-branches-synchronization.yml \
+          --repo ${{ format('{0}-commercial', github.repository) }}  \
+          --field repository=${{ github.repository }} \
+          --field branch=${{ github.ref_name }} \

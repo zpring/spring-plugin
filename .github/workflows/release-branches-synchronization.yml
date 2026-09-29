@@ -1,11 +1,5 @@
-# GH_TOKEN needs actions: read-write and contents: read
-name: "Sync Release Branches"
+name: "Release Branches - Synchronization"
 "on":
-  push:
-    branches:
-    - "main"
-    - "[0-9].[0-9].x"
-    - "[0-9].[0-9].[0-9].x"
   workflow_dispatch:
     inputs:
       repository:
@@ -17,27 +11,13 @@ name: "Sync Release Branches"
         required: true
         type: string
 jobs:
-  trigger:
-    name: Trigger Release Branches Synchronization
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-    - name: Trigger Release Branches Synchronization
-      env:
-        GH_TOKEN: ${{ secrets.SYNC_RELEASE_BRANCHES_TOKEN }}
-      if: ${{ env.GH_TOKEN != null }}
-      run: |
-          echo "Triggering Release Branches Synchronization (${{ format('{0}-commercial', github.repository) }} ${{ github.ref_name }})"
-          gh workflow run sync-release-branches.yml \
-          --repo ${{ format('{0}-commercial', github.repository) }}  \
-          --field repository=${{ github.repository }} \
-          --field branch=${{ github.ref_name }} \
   handle:
     name: Handle Release Branches Synchronization
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: write
+      actions: write
     steps:
     - name: Checkout
       uses: actions/checkout@v4
