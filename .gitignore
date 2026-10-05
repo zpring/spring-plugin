@@ -8,3 +8,4 @@ target/
 .flattened-pom.xml
 changelog.txt
 .sdkmanrc
+deployment-repository
