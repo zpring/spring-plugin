@@ -20,7 +20,7 @@ permissions:
 jobs:
   prepare-release:
     name: "Prepare Release"
-    if: startsWith(github.ref_name, 'xsnapshot/')
+    if: startsWith(github.ref_name, 'snapshot/')
     uses: "./.github/workflows/release-train-prepare-release.yml"
     with:
       release-train: ${{ inputs.release-train }}
