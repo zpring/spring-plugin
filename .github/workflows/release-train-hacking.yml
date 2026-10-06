@@ -33,6 +33,9 @@ jobs:
     steps:
     - name: "Ready"
       id: "ready"
+      env:
+        COMMIT_HASH: ${{ needs.prepare-release.outputs.commit-hash || github.sha }}
       run: |-
+        echo "COMMIT_HASH=${COMMIT_HASH}"
         echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}"
         echo "Would dispatch here"
