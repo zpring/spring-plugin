@@ -35,7 +35,9 @@ jobs:
       id: "ready"
       env:
         COMMIT_HASH: ${{ needs.prepare-release.outputs.commit-hash || github.sha }}
+        COMMIT_HASH2: ${{ github.sha }}
       run: |-
         echo "COMMIT_HASH=${COMMIT_HASH}"
+        echo "COMMIT_HASH2=${COMMIT_HASH2}"
         echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}"
         echo "Would dispatch here"
