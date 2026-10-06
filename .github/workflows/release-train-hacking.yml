@@ -18,8 +18,8 @@ run-name: "${{ inputs.release-train }} – Hacking"
 permissions:
   contents: "none"
 jobs:
-  prepare-release:
-    name: "Prepare Release"
+  prepare:
+    name: "Prepare"
     if: startsWith(github.ref_name, 'snapshot/')
     uses: "./.github/workflows/release-train-prepare-release.yml"
     with:
@@ -29,12 +29,12 @@ jobs:
     name: "Ready"
     if: always()
     runs-on: "ubuntu-latest"
-    needs: prepare-release
+    needs: prepare
     steps:
     - name: "Ready"
       id: "ready"
       env:
-        COMMIT_HASH: ${{ needs.prepare-release.outputs.commit-hash || github.sha }}
+        COMMIT_HASH: ${{ needs.prepare.outputs.commit-hash || github.sha }}
         COMMIT_HASH2: ${{ github.sha }}
       run: |-
         echo "COMMIT_HASH=${COMMIT_HASH}"
