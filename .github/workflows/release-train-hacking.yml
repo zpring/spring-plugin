@@ -18,7 +18,7 @@ run-name: "${{ inputs.release-train }} – Hacking"
 permissions:
   contents: "none"
 jobs:
-  prepare:
+  prepare-release:
     name: "Prepare Release"
     if: startsWith(github.ref_name, 'snapshot/')
     uses: "./.github/workflows/release-train-prepare-release.yml"
