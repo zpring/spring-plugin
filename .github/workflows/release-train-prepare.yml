@@ -52,5 +52,6 @@ jobs:
           echo "Prepare left staged changes that should have been commited"
           exit 1
         fi
+        # FIXME check-branchname
         git push origin ${{ steps.branch.outputs.release-branch }}
         echo "commit-sha=`git rev-parse --verify HEAD`" >> "$GITHUB_OUTPUT"

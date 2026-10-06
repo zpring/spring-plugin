@@ -39,6 +39,7 @@ jobs:
         COMMIT_HASH: ${{ needs.prepare.outputs.commit-hash || github.sha }}
         RELEASE_BRANCH: ${{ needs.prepare.outputs.release-branch || github.ref_name }}
       run: |-
+        echo "${{ needs.prepare.outputs.release-branch }}"
         if [[ ! "$RELEASE_BRANCH" == "release/"* ]]; then
           echo "Release branch '$RELEASE_BRANCH' does not start with 'release/"
           exit 1
