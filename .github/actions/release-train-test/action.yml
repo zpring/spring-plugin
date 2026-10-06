@@ -1,4 +1,5 @@
-name: Test Release
+name: Release Train - Test Release
+description: Release Train - Test Release
 runs:
   using: composite
   steps:

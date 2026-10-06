@@ -1,0 +1,32 @@
+name: "Release Train – Prepare Release"
+run-name: "${{ inputs.release-train }} – Prepare Release"
+"on":
+  workflow_call:
+    inputs:
+      release-train:
+        description: "Release train"
+        required: true
+        type: "string"
+      release-train-repository:
+        default: "spring-io/release-train"
+        description: "Release train repository"
+        required: true
+        type: "string"
+    outputs:
+      release-branch:
+        description: "The prepared release branch name"
+        value: test-release-branch
+      commit-hash:
+        description: "The hash of the prepared release branch"
+        value: test-commit-hash
+jobs:
+  ready:
+    name: "Prepare Release"
+    runs-on: "ubuntu-latest"
+    steps:
+    - name: "Check Out Code"
+      id: "check-out-code"
+      uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+    - name: "Prepare"
+      id: "prepare"
+      uses: "./.github/actions/release-train-prepare"
