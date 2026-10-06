@@ -27,6 +27,7 @@ jobs:
       release-train-repository: ${{ inputs.release-train-repository }}
   ready:
     name: "Ready"
+    if: always()
     runs-on: "ubuntu-latest"
     needs: prepare-release
     steps:
