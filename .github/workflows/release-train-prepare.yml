@@ -35,7 +35,7 @@ jobs:
     - name: "Branch"
       id: "branch"
       run: |-
-        release_branch=`echo "snapshot/1.2.3" | sed -E 's/snapshot\/+/release\//'`
+        release_branch=`echo "${{ github.ref_name }}" | sed -E 's/snapshot\/+/release\//'`
         git checkout -b $release_branch
         echo "release-branch=$release_branch" >> "$GITHUB_OUTPUT"
     - name: "Prepare"

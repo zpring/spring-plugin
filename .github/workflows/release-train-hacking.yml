@@ -25,6 +25,8 @@ jobs:
     with:
       release-train: ${{ inputs.release-train }}
       release-train-repository: ${{ inputs.release-train-repository }}
+    permissions:
+      contents: write
   ready:
     name: "Ready"
     if: always()
