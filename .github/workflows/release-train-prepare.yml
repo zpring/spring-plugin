@@ -24,7 +24,7 @@ jobs:
     name: "Prepare"
     runs-on: "ubuntu-latest"
     outputs:
-      release-branch: ${{ steps.branch.outputs.branch }}
+      release-branch: ${{ steps.branch.outputs.release_branch }}
       commit-hash: ${{ steps.push.outputs.commit-hash }}
     steps:
     - name: "Check Out Code"
