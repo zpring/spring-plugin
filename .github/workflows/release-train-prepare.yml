@@ -36,22 +36,26 @@ jobs:
       id: "branch"
       run: |-
         release_branch=`echo "${{ github.ref_name }}" | sed -E 's/snapshot\/+/release\//'`
-        git checkout -b $release_branch
-        echo "release-branch=$release_branch" >> "$GITHUB_OUTPUT"
+        git checkout -b ${release_branch}
+        echo "release-branch=$release_branch" >> "${GITHUB_OUTPUT}"
     - name: "Prepare"
       id: "prepare"
       uses: "./.github/actions/release-train-prepare"
     - name: "Push"
       id: push
       run: |-
-        if ! git diff --cached --quiet; then
-          echo "Prepare left changed fails that should have been commited"
+        release_branch="${{ steps.branch.outputs.release-branch }}"
+        if ! git diff --quiet; then
+          echo "Prepare left changed that should have been commited"
           exit 1
         fi
         if ! git diff --cached --quiet; then
           echo "Prepare left staged changes that should have been commited"
           exit 1
         fi
-        # FIXME check-branchname
-        git push origin ${{ steps.branch.outputs.release-branch }}
+        if [[ `git branch --show-current` != "${release_branch}" ]]; then
+          echo "Prepare must not change the current branch from '${release_branch}'"
+          exit 1
+        fi
+        git push origin "${release_branch}"
         echo "commit-sha=`git rev-parse --verify HEAD`" >> "$GITHUB_OUTPUT"
