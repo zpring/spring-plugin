@@ -18,18 +18,17 @@ run-name: "${{ inputs.release-train }} – Hacking"
 permissions:
   contents: "none"
 jobs:
+  prepare:
+    name: "Prepare Release"
+    if: startsWith(github.ref_name, 'snapshot/')
+    uses: "./.github/workflows/release-train-prepare-release.yml"
+    with:
+      release-train: ${{ inputs.release-train }}
+      release-train-repository: ${{ inputs.release-train-repository }}
   ready:
     name: "Ready"
     runs-on: "ubuntu-latest"
     steps:
-    - name: "Check Out Code"
-      id: "check-out-code"
-      if: startsWith(github.ref_name, 'snapshot/')
-      uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
-    - name: "Prepare"
-      id: "prepare"
-      if: startsWith(github.ref_name, 'snapshot/')
-      uses: "./.github/workflows/release-train-ready"      
     - name: "Ready"
       id: "ready"
       run: |-
