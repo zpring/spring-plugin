@@ -20,7 +20,7 @@ permissions:
 jobs:
   prepare-release:
     name: "Prepare Release"
-    if: startsWith(github.ref_name, 'snapshot/')
+    if: startsWith(github.ref_name, 'xsnapshot/')
     uses: "./.github/workflows/release-train-prepare-release.yml"
     with:
       release-train: ${{ inputs.release-train }}
@@ -33,5 +33,5 @@ jobs:
     - name: "Ready"
       id: "ready"
       run: |-
-        echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}""
+        echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}"
         echo "Would dispatch here"
