@@ -28,16 +28,10 @@ jobs:
   ready:
     name: "Ready"
     runs-on: "ubuntu-latest"
+    needs: prepare-release
     steps:
     - name: "Ready"
       id: "ready"
       run: |-
-        run_url=$(
-          gh workflow run ready \
-          --repo ${{ inputs.release-train-repository }} \
-          --ref ${{ inputs.release-train }} \
-          --field commit-hash=${{ github.sha }} \
-          --field release-branch=${{ github.ref_name }} \
-          --field release-repository=${{ github.repository }}
-        )
-        echo "Dispatched workflow run would call $run_url"
+        echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}""
+        echo "Would dispatch here"
