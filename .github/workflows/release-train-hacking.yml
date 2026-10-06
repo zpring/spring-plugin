@@ -21,7 +21,7 @@ jobs:
   prepare:
     name: "Prepare"
     if: startsWith(github.ref_name, 'snapshot/')
-    uses: "./.github/workflows/release-train-prepare-release.yml"
+    uses: "./.github/workflows/release-train-prepare.yml"
     with:
       release-train: ${{ inputs.release-train }}
       release-train-repository: ${{ inputs.release-train-repository }}
@@ -41,5 +41,8 @@ jobs:
           echo "Release branch '$RELEASE_BRANCH' does not start with 'release/"
           exit 1
         fi
-        echo "--repo ${{ inputs.release-train-repository }} --ref ${{ inputs.release-train }} --field commit-hash=${{ github.sha }} --field release-branch=${{ github.ref_name }} --field release-repository=${{ github.repository }}"
-        echo "Would dispatch here"
+        echo "repo=${{ inputs.release-train-repository }}"
+        echo "ref=${{ inputs.release-train }}"
+        echo "commit-hash=$COMMIT_HASH"
+        echo "release-branch=$RELEASE_BRANCH"
+        echo "release-repository=${{ github.repository }}"

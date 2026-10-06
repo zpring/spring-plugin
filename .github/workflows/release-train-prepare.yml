@@ -1,0 +1,56 @@
+name: "Release Train – Prepare"
+run-name: "${{ inputs.release-train }} – Prepare"
+"on":
+  workflow_call:
+    inputs:
+      release-train:
+        description: "Release train"
+        required: true
+        type: "string"
+      release-train-repository:
+        default: "spring-io/release-train"
+        description: "Release train repository"
+        required: true
+        type: "string"
+    outputs:
+      release-branch:
+        description: "The prepared release branch name"
+        value: ${{ jobs.prepare.outputs.release-branch }}
+      commit-hash:
+        description: "The hash of the prepared release branch"
+        value: ${{ jobs.prepare.outputs.commit-hash }}
+jobs:
+  prepare:
+    name: "Prepare"
+    runs-on: "ubuntu-latest"
+    outputs:
+      release-branch: ${{ steps.branch.outputs.branch }}
+      commit-hash: ${{ steps.push.outputs.commit-hash }}
+    steps:
+    - name: "Check Out Code"
+      id: "check-out-code"
+      uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+      with:
+        fetch-depth: 0
+    - name: "Branch"
+      id: "branch"
+      run: |-
+        release_branch=`echo "snapshot/1.2.3" | sed -E 's/snapshot\/+/release\//'`
+        git checkout -b $release_branch
+        echo "release-branch=$release_branch" >> "$GITHUB_OUTPUT"
+    - name: "Prepare"
+      id: "prepare"
+      uses: "./.github/actions/release-train-prepare"
+    - name: "Push"
+      id: push
+      run: |-
+        if ! git diff --cached --quiet; then
+          echo "Prepare left changed fails that should have been commited"
+          exit 1
+        fi
+        if ! git diff --cached --quiet; then
+          echo "Prepare left staged changes that should have been commited"
+          exit 1
+        fi
+        git push origin ${{ steps.branch.outputs.release-branch }}
+        echo "commit-sha=`git rev-parse --verify HEAD`" >> "$GITHUB_OUTPUT"
